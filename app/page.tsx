@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import styles from '../styles/Home.module.css'
-import supabase from '../utils/supabase'
+import supabase from './utils/supabase'
 import Image from "next/image";
 
 export default function Home() {
