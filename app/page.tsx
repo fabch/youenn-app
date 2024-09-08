@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function Home() {
 
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState([{name:"truc",category:"machin"])
 
   const fetchTodos = async () => {
     const { data } = await supabase.from('material').select('*')
