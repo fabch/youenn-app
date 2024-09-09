@@ -11,6 +11,7 @@ export default function Home() {
 
   const fetchTodos = async () => {
     const { data } = await supabase.from('material').select('*')
+    alert(JSON.stringify(data))
     setTodos(data)
   }
 
