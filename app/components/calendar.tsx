@@ -5,7 +5,7 @@ const events = [
   { title: 'Meeting', start: new Date() }
 ]
 
-export function Calendar() {
+export default function Calendar() {
   return (
     <div>
       <h1>Demo App</h1>
