@@ -1,4 +1,4 @@
-import Calendar from '@/components/calendar.tsx'
+import Calendar from '@/components/calendar'
 
 export default function Index(){
   return (
