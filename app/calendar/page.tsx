@@ -1,9 +1,11 @@
 "use client"
 
-import Calendar from '@/components/calendar'
+import Calendar from './_components/calendar'
 
 export default function CalendarPage(){
   return (
-    <Calendar />
+    <div className="container mx-auto py-10">
+      <Calendar />
+    </div>
   )
 }

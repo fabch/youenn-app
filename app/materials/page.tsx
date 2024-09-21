@@ -1,14 +1,15 @@
 "use client"
 
-import { Tables } from "@/lib/supabase/schema.types"
+import { useEffect, useState } from "react"
 import { Column, ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, Edit } from "lucide-react"
 import { DataTable } from "@/components/ui/data-table"
-import { selectMaterials } from './actions'
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
+
+import { Material } from "@/app/schema.types"
+import { selectMaterials } from '@/app/actions'
 import MaterialDrawer from "./_component/MaterialDrawer"
-import { useEffect, useState } from "react"
 
 const SortableColumnHeader = function ({
   column,
@@ -19,7 +20,7 @@ const SortableColumnHeader = function ({
 }>) {
   return (
     <Button
-    variant="link"
+    variant="ghost"
     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
   >
     {children}
@@ -28,7 +29,7 @@ const SortableColumnHeader = function ({
   );
 }
 
-const columns: ColumnDef<Tables<'material'>>[] = [
+const columns: ColumnDef<Material>[] = [
   {
     accessorKey: "type",
     header: ({ column }) => (<SortableColumnHeader column={column}>Type</SortableColumnHeader>)
@@ -63,7 +64,7 @@ const columns: ColumnDef<Tables<'material'>>[] = [
 
 export default function MaterialPage() {
 
-  const [materials, setMaterials] = useState<Tables<'material'>[]>([])
+  const [materials, setMaterials] = useState<Material[]>([])
 
   const fetchMaterials = async () => {
     const data = await selectMaterials()

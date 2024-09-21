@@ -1,8 +1,8 @@
 'use server'
 
-import { Tables } from '@/lib/supabase/schema.types'
 import { createClient } from '@/lib/supabase/server'
 import { QueryResult, QueryData, QueryError, PostgrestError } from '@supabase/supabase-js'
+import { Material } from './schema.types'
 
 export async function selectMaterials() {
   const supabase = createClient()
@@ -24,7 +24,7 @@ export async function selectMaterialCountByName(name: string) {
     return count
   }
 
-export async function insertMaterial(material: Tables<'material'>) {
+export async function insertMaterial(material: Material) {
     const supabase = createClient()
   
     const materialQuery = supabase.from('material').insert(material)
@@ -32,4 +32,26 @@ export async function insertMaterial(material: Tables<'material'>) {
     const { data, error } = await materialQuery
     if (error) throw error;
     return data as MaterialQuery
+}
+
+export async function selectServices() {
+    const supabase = createClient()
+  
+    const serviceQuery = supabase.from('service').select('*, service_material (*)')
+    type ServicesQuery = QueryData<typeof serviceQuery>;
+    const { data, error } = await serviceQuery
+    if (error) throw error;
+  
+    return data as ServicesQuery
+}
+
+export async function selectServicesMaterialFrom(start: Date, end: Date) {
+    const supabase = createClient()
+  
+    const serviceMaterialQuery = supabase.from('service_material').select('*, service (*)')
+    type ServiceMaterialQuery = QueryData<typeof serviceMaterialQuery>;
+    const { data, error } = await serviceMaterialQuery
+    if (error) throw error;
+  
+    return data as ServiceMaterialQuery
 }

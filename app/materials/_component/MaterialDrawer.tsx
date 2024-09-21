@@ -8,7 +8,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-import MaterialForm from "./MaterialForm"
+
+import MaterialForm from "@/app/_components/material-form"
 
 
 export default function MaterialPage() {

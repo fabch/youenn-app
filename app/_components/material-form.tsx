@@ -15,24 +15,14 @@ import {
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { insertMaterial, selectMaterialCountByName } from "../actions";
-
-const schema = z.object({
-    type: z.enum(["SOUND", "LIGHT", "VIDEO","ELECT","OTHER"]),
-    name: z.string().min(1, { message: 'Required' }).refine(async (name) => {
-        const count = await selectMaterialCountByName(name)
-        console.log(count)
-        return count === 0;
-    }, { message: "Déjà utilisé"}),
-    category: z.string().min(1, { message: 'Requis' }),
-    quantity: z.coerce.number().positive()
-})
+import { insertMaterial, selectMaterialCountByName } from "@/app/actions";
+import { Material, materialSchema } from "@/app/schema.types";
 
 export default function MaterialForm ({ onSuccess }: Readonly<{
     onSuccess:() => any
   }>) {
-    const form = useForm<Tables<'material'>>({
-        resolver: zodResolver(schema),
+    const form = useForm<Material>({
+        resolver: zodResolver(materialSchema),
         defaultValues: {
             type: "OTHER",
             name: "",
@@ -41,7 +31,7 @@ export default function MaterialForm ({ onSuccess }: Readonly<{
         }
     })
 
-    const onSubmit:SubmitHandler<Tables<'material'>> = async (material) => {
+    const onSubmit:SubmitHandler<Material> = async (material) => {
         await insertMaterial(material);
         onSuccess()
     }

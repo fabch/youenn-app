@@ -30,6 +30,66 @@ export type Database = {
         }
         Relationships: []
       }
+      service: {
+        Row: {
+          client: string
+          event_range: unknown
+          info: string | null
+          location_range: unknown
+          name: string
+          uid: string
+        }
+        Insert: {
+          client: string
+          event_range: unknown
+          info?: string | null
+          location_range: unknown
+          name: string
+          uid?: string
+        }
+        Update: {
+          client?: string
+          event_range?: unknown
+          info?: string | null
+          location_range?: unknown
+          name?: string
+          uid?: string
+        }
+        Relationships: []
+      }
+      service_material: {
+        Row: {
+          material: string
+          price: number | null
+          service: string
+        }
+        Insert: {
+          material: string
+          price?: number | null
+          service: string
+        }
+        Update: {
+          material?: string
+          price?: number | null
+          service?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_material_material_fkey"
+            columns: ["material"]
+            isOneToOne: false
+            referencedRelation: "material"
+            referencedColumns: ["name"]
+          },
+          {
+            foreignKeyName: "service_material_service_fkey"
+            columns: ["service"]
+            isOneToOne: false
+            referencedRelation: "service"
+            referencedColumns: ["uid"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
